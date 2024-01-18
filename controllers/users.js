@@ -22,11 +22,7 @@ export const createUser = async(req, res) => {
   if (password != confPassword) return res.status(400).json({ msg: "password harus sama" })
   const userCheck = await User.findOne({
     where: {
-      [Op.and]: [
-        {Username: username},
-        {Password: password},
-        {Email: email}
-      ]
+      Email: email
     }
   })
 
