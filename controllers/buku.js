@@ -24,7 +24,7 @@ export const createBuku = async(req, res) => {
     }
   });
 
-  if (checkBuku) res.status(400).json({ msg: "buku sudah ada"})
+  if (checkBuku) return res.status(400).json({ msg: "buku sudah ada"})
   try {
     await Buku.create({
       Judul: judul,
