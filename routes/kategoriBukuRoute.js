@@ -1,8 +1,9 @@
-import { createKategoriBuku } from "../controllers/kategoriBuku.js";
+import { createKategoriBuku, getKategoriBuku } from "../controllers/kategoriBuku.js";
 import express from "express";
 
 const router = express.Router();
 
-router.post("/createKatbuku", createKategoriBuku)
+router.get('/gKategoriBuku', getKategoriBuku);
+router.post("/cKategoribuku", createKategoriBuku);
 
 export default router;

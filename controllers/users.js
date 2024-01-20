@@ -8,7 +8,7 @@ import { Op } from "sequelize";
 export const getUsers = async (req, res) => {
     try {
         const response = await User.findAll({
-          attributes: ["userId", "username", "nama_lengkap", "alamat"] 
+          attributes: ["username", "nama_lengkap", "alamat"] 
         });
         res.status(200).json(response);
     } catch (error) {
@@ -23,8 +23,6 @@ export const createUser = async(req, res) => {
   const userCheck = await User.findOne({
     where: {
       [Op.and]: [
-        {Username: username},
-        {Password: password},
         {Email: email}
       ]
     }

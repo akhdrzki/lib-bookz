@@ -1,11 +1,18 @@
 import KatBuku from "../models/kategoriBuku.js";
 
-
+export const getKategoriBuku = async(req, res) => {
+  try {
+    const response = await KatBuku.findAll({})
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ msg: error.message })
+  }
+}
 
 export const createKategoriBuku = async(req, res) => {
   const { namaKategori } = req.body;
   
-  const available = KatBuku.findOne({
+  const available = await KatBuku.findOne({
     where: {
       NamaKategori: namaKategori 
     }

@@ -13,26 +13,25 @@ export const getPeminjaman = async(req, res) => {
 
 
 export const createPeminjaman = async(req, res) => {
-  const { userId, bukuId, tanggalPinjaman, tanggalPengembalian, statusPeminjaman } = req.body;
+  const peminjaman = req.body;
 
-  const available = Peminjaman.findOne({
+  const available = await Peminjaman.findOne({
     where: {
       [Op.and]: [
-        {UserID: userId},
-        {BukuID: bukuId}
+        {BukuID: peminjaman.BukuID}
       ]
     }
   })
 
-  if (available) return res.status(400).json({ msg: "data udah ada"})
-
+ 
+  if(available) return res.status(400).json({msg : "data sudah ada"})
   try {
     await Peminjaman.create({
-      UserID: userId,
-      BukuID: bukuId,
-      TanggalPeminjaman: tanggalPeminjaman,
-      TanggalPengembalian: tanggalPengembalian,
-      StatusPinjaman: statusPinjaman
+      UserID: peminjaman.UserID,
+      BukuID: peminjaman.BukuID,
+      TanggalPeminjaman: peminjaman.TanggalPeminjaman,
+      TanggalPengembalian: peminjaman.TanggalPengembalian,
+      StatusPinjaman: peminjaman.StatusPinjaman
     });
     res.status(201).json({ msg : "data berhasil dibuat"})
   } catch (error) {
