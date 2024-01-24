@@ -1,19 +1,19 @@
 import express from "express";
 import bodyParser from "body-parser";
 import session from "express-session";
+import cookieParser from "cookie-parser";
 
 import cors from "cors"
 
 const app = express();
 
 app.use(
-  cors({
-    credentials: true,
-    origin: 'http://localhost:3000'
-  })
+  cors()
 )
-
-
+app.use(cookieParser());
+app.use(session({
+  secret: 'halogays'
+}))
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
