@@ -8,7 +8,7 @@ import { Op } from "sequelize";
 export const getUsers = async (req, res) => {
     try {
         const response = await User.findAll({
-          attributes: ["userId", "username", "nama_lengkap", "alamat"] 
+          attributes: ["username", "nama_lengkap", "alamat"] 
         });
         res.status(200).json(response);
     } catch (error) {
@@ -50,21 +50,24 @@ export const Login = async(req, res) => {
   const user = await User.findOne({
     where: {
       [Op.and]: [
-        {Username: req.body.username},
-        {Password: req.body.password},
         {Email: req.body.email},
+        {Password: req.body.password}
       ] 
     }
   });
   if (!user) return res.status(400).json({ msg: "user tidak ditemukan" })
   
   try {
-    if (user.Password !== req.body.password && user.Username !== req.body.username && user.Email !== req.body.email) {
-      return res.status(400).json({ msg: "password salah" })
+    if (user.Password !== req.body.password && user.Email !== req.body.Email) {
+      return res.status(400).json({ msg: "email atau password salah" })
     }
+    
+    req.session.UserID = user.UserID;
+    const myUsername = user.Username;
+    const myEmail = user.Email; 
 
     res.status(200).json({  
-      msg: "berhasil login"
+      myUsername, myEmail
     })
   } catch (error) {
     res.status(500).json({ msg: error.message })
@@ -72,3 +75,6 @@ export const Login = async(req, res) => {
 }
 
 
+export const Me = await User.findOne({
+
+})

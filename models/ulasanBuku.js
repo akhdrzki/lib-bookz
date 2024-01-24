@@ -1,11 +1,8 @@
-import db from "../config/db.js";
 import { DataTypes } from "sequelize";
+import db from "../config/db.js";
 
-import User from "./user.js";
-import Buku from "./buku.js";
-
-const Peminjaman = db.define("peminjaman", {
-  PeminjamanID: {
+const UlasanBuku = db.define('ulasanbuku', {
+  UlasanID: {
     type: DataTypes.INTEGER,
     allowNull: true,
     validate: {
@@ -18,7 +15,7 @@ const Peminjaman = db.define("peminjaman", {
     allowNull: false,
     validate: {
       notEmpty: true
-    }, 
+    },
     primaryKey: true
   },
 
@@ -27,40 +24,28 @@ const Peminjaman = db.define("peminjaman", {
     allowNull: false,
     validate: {
       notEmpty: true
-    }    
+    }
   },
 
-  TanggalPeminjaman: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-
-  },
-
-  TanggalPengembalian: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  }, 
-
-  StatusPinjaman: {
+  Ulasan: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notEmpty: true
     }
   },
+
+  Rating: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  }
 }, {
     freezeTableName: true,
     createdAt: false,
     updatedAt: false
   })
 
- 
-export default Peminjaman ;
-
-
+export default UlasanBuku;
