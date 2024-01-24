@@ -1,7 +1,5 @@
 import { getUsers, createUser, Login } from "../controllers/users.js";
-import express from "express";
-import {validateAccess} from "../middleware/authUser.js"; 
-
+import express from "express"
 const router = express.Router();
 
 router.get("/users", getUsers);
